@@ -34,24 +34,29 @@ class CanvasNode {
     orbX: number,
     orbY: number,
     canvasRect: DOMRect,
-    ripples: RipplePoint[]
+    ripples: RipplePoint[],
+    orbActive: boolean
   ) {
     const px = this.originX + Math.sin(pulse) * 4;
     const py = this.originY + Math.cos(pulse) * 4;
     let tx = px;
     let ty = py;
 
-    const relativeOrbX = orbX - canvasRect.left;
-    const relativeOrbY = orbY - canvasRect.top;
-    const dx = this.x - relativeOrbX;
-    const dy = this.y - relativeOrbY;
-    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (orbActive) {
+      const relativeOrbX = orbX - canvasRect.left;
+      const relativeOrbY = orbY - canvasRect.top;
+      const dx = this.x - relativeOrbX;
+      const dy = this.y - relativeOrbY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
 
-    if (dist < 180) {
-      const force = (180 - dist) / 180;
-      tx += (dx / dist) * force * 40;
-      ty += (dy / dist) * force * 40;
-      this.brightness = Math.min(0.6, this.brightness + 0.1);
+      if (dist < 180) {
+        const force = (180 - dist) / 180;
+        tx += (dx / dist) * force * 40;
+        ty += (dy / dist) * force * 40;
+        this.brightness = Math.min(0.6, this.brightness + 0.1);
+      } else {
+        this.brightness = Math.max(0.15, this.brightness - 0.01);
+      }
     } else {
       this.brightness = Math.max(0.15, this.brightness - 0.01);
     }
@@ -60,9 +65,10 @@ class CanvasNode {
       const rdx = this.x - r.x;
       const rdy = this.y - r.y;
       const rdist = Math.sqrt(rdx * rdx + rdy * rdy);
+      if (rdist === 0) return;
       const diff = Math.abs(rdist - r.radius);
       if (diff < 80 && rdist < r.radius + 30) {
-        const force = ((1 - diff / 80) * 100 * (1 - r.radius / 2000));
+        const force = (1 - diff / 80) * 100 * (1 - r.radius / 2000);
         tx += (rdx / rdist) * force;
         ty += (rdy / rdist) * force;
         this.brightness = 0.9;
@@ -100,8 +106,10 @@ export default function HeroCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // The hero section is the parent of the container div
     const heroSection = container.parentElement as HTMLElement;
+
+    // Only enable the custom cursor on true pointer devices (not touch/stylus-only)
+    const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
 
     const NODE_GAP = 50;
     const ORB_INERTIA = 0.12;
@@ -112,7 +120,8 @@ export default function HeroCanvas() {
     let mouseY = 0;
     let orbX = 0;
     let orbY = 0;
-    let lastUserActivity = Date.now();
+    let isMouseActive = false;
+    let lastAutoRipple = Date.now();
     let animId: number;
 
     function initCanvas() {
@@ -130,9 +139,15 @@ export default function HeroCanvas() {
       }
     }
 
-    function triggerRipple(clientX: number, clientY: number) {
+    // Takes canvas-local coordinates (not viewport)
+    function triggerRippleLocal(canvasX: number, canvasY: number) {
+      ripples.push({ x: canvasX, y: canvasY, radius: 0 });
+    }
+
+    // Takes viewport coordinates (clientX / clientY)
+    function triggerRippleViewport(clientX: number, clientY: number) {
       const rect = canvas!.getBoundingClientRect();
-      ripples.push({ x: clientX - rect.left, y: clientY - rect.top, radius: 0 });
+      triggerRippleLocal(clientX - rect.left, clientY - rect.top);
     }
 
     function animate() {
@@ -140,15 +155,22 @@ export default function HeroCanvas() {
       const now = Date.now();
       const time = now / 3000;
 
-      if (now - lastUserActivity > 6000) {
-        triggerRipple(Math.random() * canvas!.width, Math.random() * canvas!.height);
-        lastUserActivity = now;
+      // Auto-ripple when idle — uses canvas-local coords directly
+      if (now - lastAutoRipple > 6000) {
+        triggerRippleLocal(
+          Math.random() * canvas!.width,
+          Math.random() * canvas!.height
+        );
+        lastAutoRipple = now;
       }
 
-      orbX += (mouseX - orbX) * ORB_INERTIA;
-      orbY += (mouseY - orbY) * ORB_INERTIA;
+      // Only move the orb when the mouse is actually inside the hero
+      if (isMouseActive) {
+        orbX += (mouseX - orbX) * ORB_INERTIA;
+        orbY += (mouseY - orbY) * ORB_INERTIA;
+      }
 
-      if (cursor) {
+      if (cursor && hasFinePointer) {
         cursor.style.left = `${orbX}px`;
         cursor.style.top = `${orbY}px`;
       }
@@ -160,7 +182,7 @@ export default function HeroCanvas() {
 
       const canvasRect = canvas!.getBoundingClientRect();
       nodes.forEach((node) => {
-        node.update(time, orbX, orbY, canvasRect, ripples);
+        node.update(time, orbX, orbY, canvasRect, ripples, isMouseActive);
         node.draw(ctx!);
       });
 
@@ -170,40 +192,48 @@ export default function HeroCanvas() {
     initCanvas();
     animate();
 
-    // Add hero-cursor-zone class to hero section for cursor:none CSS
-    heroSection.classList.add("hero-cursor-zone");
+    // Only add cursor-hiding class when we actually have a fine pointer
+    if (hasFinePointer) {
+      heroSection.classList.add("hero-cursor-zone");
+    }
 
     const onResize = () => initCanvas();
 
-    // All mouse events scoped to the hero section only
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      lastUserActivity = Date.now();
-      if (cursor) cursor.style.opacity = "0.7";
+      isMouseActive = true;
+      lastAutoRipple = Date.now();
+      if (cursor && hasFinePointer) cursor.style.opacity = "0.7";
     };
+
     const onMouseLeave = () => {
+      isMouseActive = false;
       if (cursor) cursor.style.opacity = "0";
     };
+
     const onMouseDown = (e: MouseEvent) => {
-      triggerRipple(e.clientX, e.clientY);
-      lastUserActivity = Date.now();
-      if (cursor) {
+      triggerRippleViewport(e.clientX, e.clientY);
+      lastAutoRipple = Date.now();
+      if (cursor && hasFinePointer) {
         cursor.style.width = "22px";
         cursor.style.height = "22px";
         cursor.style.opacity = "1";
       }
     };
+
     const onMouseUp = () => {
-      if (cursor) {
+      if (cursor && hasFinePointer) {
         cursor.style.width = "16px";
         cursor.style.height = "16px";
         cursor.style.opacity = "0.7";
       }
     };
+
     const onMouseOver = (e: MouseEvent) => {
+      if (!hasFinePointer || !cursor) return;
       const target = e.target as Element;
-      if (target.closest("a, button, input, textarea, [role=button]") && cursor) {
+      if (target.closest("a, button, input, textarea, [role=button]")) {
         cursor.style.width = "28px";
         cursor.style.height = "28px";
         cursor.style.opacity = "0.4";
@@ -211,14 +241,25 @@ export default function HeroCanvas() {
         cursor.style.border = "2px solid #2563EB";
       }
     };
+
     const onMouseOut = (e: MouseEvent) => {
+      if (!hasFinePointer || !cursor) return;
       const target = e.target as Element;
-      if (target.closest("a, button, input, textarea, [role=button]") && cursor) {
+      if (target.closest("a, button, input, textarea, [role=button]")) {
         cursor.style.width = "16px";
         cursor.style.height = "16px";
         cursor.style.opacity = "0.7";
         cursor.style.background = "#2563EB";
         cursor.style.border = "none";
+      }
+    };
+
+    // Touch: trigger ripple on tap for a nice mobile interaction
+    const onTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      if (touch) {
+        triggerRippleViewport(touch.clientX, touch.clientY);
+        lastAutoRipple = Date.now();
       }
     };
 
@@ -229,6 +270,7 @@ export default function HeroCanvas() {
     heroSection.addEventListener("mouseup", onMouseUp);
     heroSection.addEventListener("mouseover", onMouseOver);
     heroSection.addEventListener("mouseout", onMouseOut);
+    heroSection.addEventListener("touchstart", onTouchStart, { passive: true });
 
     return () => {
       cancelAnimationFrame(animId);
@@ -240,6 +282,7 @@ export default function HeroCanvas() {
       heroSection.removeEventListener("mouseup", onMouseUp);
       heroSection.removeEventListener("mouseover", onMouseOver);
       heroSection.removeEventListener("mouseout", onMouseOut);
+      heroSection.removeEventListener("touchstart", onTouchStart);
     };
   }, []);
 

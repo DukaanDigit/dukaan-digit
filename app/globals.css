@@ -224,3 +224,10 @@ body {
   .floating-element { animation: none; }
   #custom-cursor { display: none; }
 }
+
+/* Hide custom cursor and restore normal cursor on touch/stylus-only devices */
+@media (pointer: coarse) {
+  #custom-cursor { display: none !important; }
+  .hero-cursor-zone,
+  .hero-cursor-zone * { cursor: auto !important; }
+}

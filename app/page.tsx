@@ -233,14 +233,113 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Final CTA Banner */}
-        <section className="bg-[#2563EB] py-24 text-center">
+        {/* Transparent Pricing */}
+        <section className="bg-[#F0F2F5] section-padding">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl heavy-heading mb-4 text-text-main">Transparent Pricing</h2>
+              <p className="text-text-muted mx-auto" style={{ maxWidth: "38rem" }}>Scalable solutions for every store size, from street-side stalls to large mini-marts.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8" style={{ maxWidth: "720px", margin: "0 auto" }}>
+              {/* Basic Plan */}
+              <div className="bg-white border border-border-subtle rounded-2xl p-8 flex flex-col">
+                <h3 className="text-xl heavy-heading mb-2 text-text-main">Basic Plan</h3>
+                <div className="mb-1">
+                  <span className="text-4xl heavy-heading text-text-main">Rs. 800</span>
+                  <span className="text-text-muted text-sm">/mo</span>
+                </div>
+                <p className="text-[#2563EB] text-sm mb-6">Ideal for small, single-owner kiryana shops.</p>
+                <hr className="border-border-subtle mb-6" />
+                <ul className="space-y-3 mb-8 flex-grow">
+                  {[
+                    { text: "Unlimited Sales Entries", included: true },
+                    { text: "Digital Udhaar Ledger", included: true },
+                    { text: "Basic Inventory Tracking", included: true },
+                    { text: "AI Purchase Predictions", included: false },
+                  ].map((item) => (
+                    <li key={item.text} className="flex items-center gap-3">
+                      <span className={`material-symbols-outlined ${item.included ? "text-[#2563EB]" : "text-text-muted"}`} style={{ fontSize: "18px" }}>
+                        {item.included ? "check" : "close"}
+                      </span>
+                      <span className={`text-sm ${item.included ? "text-text-main" : "text-text-muted"}`}>{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
+                <hr className="border-border-subtle mb-6" />
+                <Link href="/contact" className="block text-center border border-text-main text-text-main py-3 rounded-lg font-bold hover:bg-surface-alt transition-colors">
+                  Choose Basic
+                </Link>
+              </div>
+              {/* Pro Plan */}
+              <div className="bg-[#0A0A0A] rounded-2xl p-8 flex flex-col relative">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#2563EB] text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider whitespace-nowrap">
+                  Most Popular
+                </div>
+                <h3 className="text-xl heavy-heading mb-2 text-white">Pro Plan</h3>
+                <div className="mb-1">
+                  <span className="text-4xl heavy-heading text-white">Rs. 1,200</span>
+                  <span className="text-white/60 text-sm">/mo</span>
+                </div>
+                <p className="text-white/70 text-sm mb-6">For growing mini-marts with multiple staff.</p>
+                <hr className="border-white/10 mb-6" />
+                <ul className="space-y-3 mb-8 flex-grow">
+                  {["Multi-Staff Accounts", "AI-Powered Stock Optimization", "WhatsApp Marketing Engine", "Advanced Sales Analytics"].map((item) => (
+                    <li key={item} className="flex items-center gap-3">
+                      <span className="material-symbols-outlined text-[#2563EB]" style={{ fontSize: "18px" }}>check</span>
+                      <span className="text-sm text-white">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <hr className="border-white/10 mb-6" />
+                <Link href="/contact" className="block text-center bg-[#2563EB] text-white py-3 rounded-lg font-bold hover:brightness-110 transition-all">
+                  Go Pro
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Development Roadmap */}
+        <section className="max-w-7xl mx-auto px-6 section-padding">
+          <div className="mb-10">
+            <h2 className="text-3xl heavy-heading text-text-main">Development Roadmap</h2>
+            <p className="text-[#2563EB] text-sm mt-1">Our 12-month engineering milestone summary.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { quarter: "Q1", label: "FOUNDATION", active: true, title: "Core POS Release", desc: "Launch of mobile-first inventory and sales module with offline support." },
+              { quarter: "Q2", label: "GROWTH", active: false, title: "Digital Payments", desc: "Integration with Easypaisa, JazzCash, and direct bank API for settlements." },
+              { quarter: "Q3", label: "SCALE", active: false, title: "DukanDigit AI", desc: "Deployment of generative AI for demand forecasting and procurement." },
+              { quarter: "Q4", label: "ECOSYSTEM", active: false, title: "FMCG Connect", desc: "Direct supply chain bridge connecting brands to stores via real-time data." },
+            ].map((item) => (
+              <div
+                key={item.quarter}
+                className={`rounded-xl p-6 border border-border-subtle ${item.active ? "border-l-[3px] border-l-[#2563EB]" : ""}`}
+              >
+                <p className={`text-xs font-bold uppercase tracking-wider mb-3 ${item.active ? "text-[#2563EB]" : "text-text-muted"}`}>
+                  {item.quarter} — {item.label}
+                </p>
+                <h4 className="heavy-heading text-text-main mb-2">{item.title}</h4>
+                <p className="text-sm text-text-muted leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Ready to Dominate CTA */}
+        <section className="bg-[#0A0A0A] py-24 text-center mx-6 rounded-3xl mb-16" style={{ maxWidth: "calc(100% - 3rem)" }}>
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-4xl md:text-5xl heavy-heading text-white mb-8 leading-tight">Building The Digital Backbone Of Small Business</h2>
-            <p className="text-white/80 text-lg mb-12 mx-auto" style={{ maxWidth: "42rem" }}>We are on a mission to empower every merchant in Pakistan with tools that were previously only available to global conglomerates.</p>
+            <h2 className="text-4xl md:text-5xl heavy-heading text-white mb-6 leading-tight">Ready to dominate your market?</h2>
+            <p className="text-white/70 text-lg mb-10 mx-auto" style={{ maxWidth: "38rem" }}>
+              Join the digital revolution. Transform your store from a shop to a data-driven retail powerhouse today.
+            </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/contact" className="bg-white text-[#2563EB] px-10 py-4 rounded-full font-bold shadow-xl hover:scale-105 transition-transform">Get Started Today</Link>
-              <Link href="/contact" className="border-2 border-white/30 text-white px-10 py-4 rounded-full font-bold hover:bg-white/10 transition-all">Contact Sales</Link>
+              <Link href="/contact" className="bg-[#2563EB] text-white px-8 py-3.5 rounded-lg font-bold hover:brightness-110 transition-all">
+                Start 30-day Free Trial
+              </Link>
+              <Link href="/contact" className="border border-white/30 text-white px-8 py-3.5 rounded-lg font-bold hover:bg-white/10 transition-all">
+                Book a Consultant
+              </Link>
             </div>
           </div>
         </section>

@@ -47,7 +47,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-6 pt-10 border-t border-border-subtle flex flex-col md:flex-row justify-between items-center gap-6">
-        <p className="text-xs text-text-muted">© 2024 DukanDigit Pvt. Ltd. All rights reserved.</p>
+        <p className="text-xs text-text-muted">© 2026 DukanDigit Pvt. Ltd. All rights reserved.</p>
         <div className="flex items-center gap-6 text-text-muted">
           <Link className="hover:text-[#2563EB] transition-colors" href="#">
             <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>public</span>
