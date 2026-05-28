@@ -1,23 +1,9 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function ContactPage() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setStatus("sending");
-    setTimeout(() => {
-      setStatus("sent");
-      setTimeout(() => setStatus("idle"), 3000);
-    }, 1500);
-  }
-
   return (
     <div className="bg-surface-container-lowest">
       <Navbar />
@@ -88,42 +74,34 @@ export default function ContactPage() {
 
             {/* Right: Form */}
             <div className="bg-white border border-border-subtle p-lg md:p-xl">
-              <form className="flex flex-col gap-lg" onSubmit={handleSubmit}>
+              <form className="flex flex-col gap-lg" action="/api/contact" method="POST">
+                <input name="returnUrl" type="hidden" value="/contact?submitted=1" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
                   <div className="flex flex-col gap-xs">
                     <label className="font-label-sm text-label-sm text-text-main">Name</label>
-                    <input className="border border-border-subtle px-md py-sm font-body-sm text-body-sm focus:border-primary outline-none transition-colors" placeholder="John Doe" type="text" />
+                    <input className="border border-border-subtle px-md py-sm font-body-sm text-body-sm focus:border-primary outline-none transition-colors" placeholder="John Doe" type="text" name="name" />
                   </div>
                   <div className="flex flex-col gap-xs">
                     <label className="font-label-sm text-label-sm text-text-main">Company</label>
-                    <input className="border border-border-subtle px-md py-sm font-body-sm text-body-sm focus:border-primary outline-none transition-colors" placeholder="Acme Corp" type="text" />
+                    <input className="border border-border-subtle px-md py-sm font-body-sm text-body-sm focus:border-primary outline-none transition-colors" placeholder="Acme Corp" type="text" name="company" />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
                   <div className="flex flex-col gap-xs">
                     <label className="font-label-sm text-label-sm text-text-main">Email Address</label>
-                    <input className="border border-border-subtle px-md py-sm font-body-sm text-body-sm focus:border-primary outline-none transition-colors" placeholder="john@company.com" type="email" />
+                    <input className="border border-border-subtle px-md py-sm font-body-sm text-body-sm focus:border-primary outline-none transition-colors" placeholder="john@company.com" type="email" name="email" />
                   </div>
                   <div className="flex flex-col gap-xs">
                     <label className="font-label-sm text-label-sm text-text-main">Phone Number</label>
-                    <input className="border border-border-subtle px-md py-sm font-body-sm text-body-sm focus:border-primary outline-none transition-colors" placeholder="+1 (555) 000-0000" type="tel" />
+                    <input className="border border-border-subtle px-md py-sm font-body-sm text-body-sm focus:border-primary outline-none transition-colors" placeholder="+1 (555) 000-0000" type="tel" name="phone" />
                   </div>
                 </div>
                 <div className="flex flex-col gap-xs">
                   <label className="font-label-sm text-label-sm text-text-main">Message</label>
-                  <textarea className="border border-border-subtle px-md py-sm font-body-sm text-body-sm focus:border-primary outline-none transition-colors resize-none" placeholder="Tell us about your project goals..." rows={5}></textarea>
+                  <textarea className="border border-border-subtle px-md py-sm font-body-sm text-body-sm focus:border-primary outline-none transition-colors resize-none" placeholder="Tell us about your project goals..." rows={5} name="message"></textarea>
                 </div>
-                <button
-                  className={`py-md font-label-md text-label-md uppercase tracking-wider transition-all active:scale-[0.98] ${
-                    status === "sent"
-                      ? "bg-green-600 text-white"
-                      : "bg-primary-container text-on-primary hover:brightness-110"
-                  } ${status === "sending" ? "opacity-50 pointer-events-none" : ""}`}
-                  type="submit"
-                >
-                  {status === "idle" && "Submit Inquiry"}
-                  {status === "sending" && "Sending..."}
-                  {status === "sent" && "Inquiry Sent ✓"}
+                <button className="py-md font-label-md text-label-md uppercase tracking-wider transition-all active:scale-[0.98] bg-primary-container text-on-primary hover:brightness-110" type="submit">
+                  Submit Inquiry
                 </button>
               </form>
             </div>

@@ -365,24 +365,29 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-          <form className="bg-white border border-border-subtle p-8 md:p-12 rounded-3xl shadow-sm">
+          <form className="bg-white border border-border-subtle p-8 md:p-12 rounded-3xl shadow-sm" action="/api/contact" method="POST">
+            <input name="returnUrl" type="hidden" value="/?submitted=1" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
                 <label className="block text-sm font-bold mb-2 text-text-main">Full Name</label>
-                <input className="w-full bg-surface-alt border border-border-subtle rounded-lg p-3 text-sm outline-none focus:border-[#2563EB]" placeholder="Ali Ahmed" type="text" />
+                <input className="w-full bg-surface-alt border border-border-subtle rounded-lg p-3 text-sm outline-none focus:border-[#2563EB]" placeholder="Ali Ahmed" type="text" name="name" />
               </div>
               <div>
                 <label className="block text-sm font-bold mb-2 text-text-main">Company Name</label>
-                <input className="w-full bg-surface-alt border border-border-subtle rounded-lg p-3 text-sm outline-none focus:border-[#2563EB]" placeholder="ABC Enterprises" type="text" />
+                <input className="w-full bg-surface-alt border border-border-subtle rounded-lg p-3 text-sm outline-none focus:border-[#2563EB]" placeholder="ABC Enterprises" type="text" name="company" />
               </div>
             </div>
             <div className="mb-6">
               <label className="block text-sm font-bold mb-2 text-text-main">Email Address</label>
-              <input className="w-full bg-surface-alt border border-border-subtle rounded-lg p-3 text-sm outline-none focus:border-[#2563EB]" placeholder="ali@company.com" type="email" />
+              <input className="w-full bg-surface-alt border border-border-subtle rounded-lg p-3 text-sm outline-none focus:border-[#2563EB]" placeholder="ali@company.com" type="email" name="email" />
+            </div>
+            <div className="mb-6">
+              <label className="block text-sm font-bold mb-2 text-text-main">Phone Number</label>
+              <input className="w-full bg-surface-alt border border-border-subtle rounded-lg p-3 text-sm outline-none focus:border-[#2563EB]" placeholder="+92 300 123 4567" type="tel" name="phone" />
             </div>
             <div className="mb-8">
               <label className="block text-sm font-bold mb-2 text-text-main">Message</label>
-              <textarea className="w-full bg-surface-alt border border-border-subtle rounded-lg p-3 text-sm outline-none focus:border-[#2563EB]" placeholder="How can we help your business?" rows={4}></textarea>
+              <textarea className="w-full bg-surface-alt border border-border-subtle rounded-lg p-3 text-sm outline-none focus:border-[#2563EB]" placeholder="How can we help your business?" rows={4} name="message"></textarea>
             </div>
             <button className="w-full bg-[#2563EB] text-white py-4 rounded-xl font-bold hover:brightness-110 transition-all shadow-lg" type="submit">Submit Inquiry</button>
           </form>
