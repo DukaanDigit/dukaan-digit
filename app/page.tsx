@@ -108,14 +108,12 @@ export default function HomePage() {
               </ul>
             </div>
             {/* Centre dark image */}
-            <div className="bg-[#0A0A0A] rounded-2xl overflow-hidden relative" style={{ minHeight: "280px" }}>
+            <div className="bg-[#0A0A0A] rounded-2xl overflow-hidden relative" style={{ minHeight: "340px" }}>
               <Image
-                src="/barcode-phone.png"
+                src="/barcode.png"
                 alt="Barcode scanner phone"
-                width={600}
-                height={400}
-                className="w-full h-full object-cover opacity-75"
-                style={{ position: "absolute", inset: 0 }}
+                fill
+                className="object-cover object-center"
                 unoptimized
               />
             </div>
