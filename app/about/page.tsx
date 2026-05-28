@@ -12,7 +12,7 @@ const teamMembers = [
   },
   {
     name: "Daniyal Qureshi",
-    role: "Chief Technology Officer",
+    role: "CTO & Co-founder",
     img: "/daniyal.png",
     linkedin: "https://www.linkedin.com/in/daniyal-qureshi-b81016334/",
   },
