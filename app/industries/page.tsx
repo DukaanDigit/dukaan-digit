@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -123,7 +123,7 @@ const tabs = [
   { key: "distributors", label: "Distributors" },
 ];
 
-export default function IndustriesPage() {
+function IndustriesContent() {
   const searchParams = useSearchParams();
   const initialTab = searchParams.get("tab");
   const [activeTab, setActiveTab] = useState(
@@ -177,7 +177,7 @@ export default function IndustriesPage() {
                 <div className="space-y-lg">
                   {data.features.map((feature) => (
                     <div key={feature.title} className="flex gap-md">
-                      <div className="w-12 h-12 flex-shrink-0 bg-secondary-container flex items-center justify-center">
+                      <div className="w-12 h-12 shrink-0 bg-secondary-container flex items-center justify-center">
                         <span className="material-symbols-outlined text-primary">{feature.icon}</span>
                       </div>
                       <div>
@@ -240,5 +240,13 @@ export default function IndustriesPage() {
       </main>
       <Footer />
     </div>
+  );
+}
+
+export default function IndustriesPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+      <IndustriesContent />
+    </Suspense>
   );
 }
