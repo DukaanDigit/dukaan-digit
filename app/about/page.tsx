@@ -5,19 +5,22 @@ import Footer from "@/components/Footer";
 
 const teamMembers = [
   {
-    name: "Omar Khalid",
+    name: "Malik Abdullah Nasir",
     role: "Founder & CEO",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuA3Luo6O0Cis9P9-J1K5pzpFrSSFYTZ7F4yVMjizvAt1sr8BbxVRZqqKQGwbuqk5gvh_JkdaMNsw6tRhqeudEdkhbcD4hPfq6OX3gbk0VyICiZE6SnreggslR0Wid1hA6soy4zTtVcLYJMGC1vqP2CaLrqggRi_vnIiW0s07SSpXEVsMcpPSBIlHqWf1xtDGIysJSRKxIeL590Rk-5SopeOQnicGrsPcmjM5oqjmm5tWzjsgtrQwpRpY3U5Ch4AvYVPCPZvlP2gnK52",
+    img: "/abdullah.jpg",
+    linkedin: "https://www.linkedin.com/in/itsmalikabdullahnasir/",
   },
   {
-    name: "Sara Ahmed",
+    name: "Daniyal Qureshi",
     role: "Chief Technology Officer",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBjecj6RiHGJDXPq7c8MTQMPIbPcpP3_q-22g-xOLIV8wARiEeIBqFoqQhyP6kBx2bdhAoYCcgseSqbRr8l_eXRlrPvVb2enAldkoZNk1xUpzOy0m0RpklZ9dR56IVnrRAgK8JexT4YKwD3Nj6UqCoA3NM-Ow_aMPZuRIYdJNYpFPpmR0n0fSE5P9pTDqHaNpWcN3VbxWI_hrwMrT3WjE06uQs2yQ6GjZu_Z6oBvq36P-5UPnZT6Rj2AW0ujr_xGBUlE8FJai095uWS",
+    img: "/daniyal.png",
+    linkedin: "https://www.linkedin.com/in/daniyal-qureshi-b81016334/",
   },
   {
-    name: "Zayn Malik",
-    role: "Chief Operating Officer",
+    name: "Muhammad Jibran",
+    role: "Lead Developer & DevOps Engineer",
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAAd3hg1mCMVY3B0i47FfMdEZdavZUeSTc-m5T8x-8eISTszM2kv4eii56TpBU2p12ASKJhCwR5ZCUdcqgSFTSPAcAcdudPVWuWj5DN44DS0xOXKLrYrsq8jyBPaYjdZ52XtdQD1k3FJPZFqpWVtoPP82GbHaz_XTXyI3x5hNtyWAOppzVcxW1di0bUmyhWGNwdo0FAeDSpeLsvAcXXK9zmOhv0jVkMupClWD5JvrgCcCjRBr_HlcCrXe6_pc9IXEIMqfeEnY0P2Fn0",
+    linkedin: "https://www.linkedin.com/in/muhammad-jibran-8802322a5",
   },
   {
     name: "Ayesha Khan",
@@ -121,9 +124,13 @@ export default function AboutPage() {
                 </div>
                 <h4 className="font-headline-sm text-headline-sm text-text-main">{member.name}</h4>
                 <p className="font-body-sm text-body-sm text-text-muted mb-md">{member.role}</p>
-                <Link href="#" className="inline-flex items-center justify-center text-text-muted hover:text-primary transition-colors">
-                  <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>link</span>
-                </Link>
+                {member.linkedin && (
+                  <Link href={member.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center text-text-muted hover:text-[#0A66C2] transition-colors" title="LinkedIn Profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                  </Link>
+                )}
               </div>
             ))}
           </div>
