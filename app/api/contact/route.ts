@@ -74,7 +74,7 @@ export async function POST(request: Request) {
       subject,
       text: formatText(payload),
       html: formatHtml(payload),
-      replyTo: payload.email,
+      reply_to: payload.email,
     });
   } catch (error) {
     return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
