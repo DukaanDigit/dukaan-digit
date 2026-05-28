@@ -84,6 +84,77 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* One Platform. Total Control. — Bento Grid */}
+        <section className="max-w-7xl mx-auto px-6 section-padding">
+          <div className="text-center mb-12">
+            <span className="text-xs font-bold text-[#2563EB] uppercase tracking-[0.2em] mb-4 block">Engineered for Efficiency</span>
+            <h2 className="text-4xl heavy-heading text-text-main">One Platform. Total Control.</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Scan & Sell */}
+            <div className="bg-white border border-border-subtle rounded-2xl p-8">
+              <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-6">
+                <span className="material-symbols-outlined text-white" style={{ fontSize: "22px" }}>qr_code_scanner</span>
+              </div>
+              <h3 className="text-xl heavy-heading text-text-main mb-3">Scan &amp; Sell</h3>
+              <p className="text-text-muted text-sm leading-relaxed mb-6">Ultra-fast checkout via mobile camera or external scanner. Reduce queues and automate your billing in seconds.</p>
+              <ul className="space-y-2">
+                {["1.2s average scan speed", "Multi-barcode support"].map((feat) => (
+                  <li key={feat} className="flex items-center gap-2 text-sm text-text-main font-semibold">
+                    <span className="material-symbols-outlined text-[#2563EB]" style={{ fontSize: "18px" }}>check_circle</span>
+                    {feat}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* Centre dark image */}
+            <div className="bg-[#0A0A0A] rounded-2xl overflow-hidden relative" style={{ minHeight: "280px" }}>
+              <Image
+                src="/barcode-phone.png"
+                alt="Barcode scanner phone"
+                width={600}
+                height={400}
+                className="w-full h-full object-cover opacity-75"
+                style={{ position: "absolute", inset: 0 }}
+                unoptimized
+              />
+            </div>
+            {/* WhatsApp Alerts */}
+            <div className="bg-white border border-border-subtle rounded-2xl p-8" style={{ borderLeft: "4px solid #2563EB" }}>
+              <div className="w-12 h-12 bg-[#2563EB] rounded-xl flex items-center justify-center mb-6">
+                <span className="material-symbols-outlined text-white" style={{ fontSize: "22px" }}>receipt_long</span>
+              </div>
+              <h3 className="text-lg heavy-heading text-text-main mb-3">WhatsApp Alerts</h3>
+              <p className="text-text-muted text-sm leading-relaxed mb-4">Keep customers loyal with automated digital receipts and credit reminders sent directly to their WhatsApp.</p>
+              <div className="bg-[#F4F4F5] rounded-lg p-3 font-mono text-xs text-text-muted">
+                <div className="text-[10px] text-text-muted mb-1 uppercase tracking-wider">SYSTEM: MESSAGE_SENT</div>
+                <div>&quot;Dear Ali, your balance of Rs. 450<br />is due. Pay now via Link.&quot;</div>
+              </div>
+            </div>
+            {/* Reliable Offline Mode */}
+            <div className="bg-white border border-border-subtle rounded-2xl p-8">
+              <div className="w-12 h-12 bg-surface-alt rounded-xl flex items-center justify-center mb-6">
+                <span className="material-symbols-outlined text-text-muted" style={{ fontSize: "22px" }}>wifi_off</span>
+              </div>
+              <h3 className="text-lg heavy-heading text-[#2563EB] mb-3">Reliable Offline Mode</h3>
+              <p className="text-[#2563EB]/80 text-sm leading-relaxed">Internet goes down, business doesn&apos;t. Full functionality without connectivity, syncing automatically when back online.</p>
+            </div>
+            {/* AI Marketing & Insights */}
+            <div className="bg-[#0A0A0A] rounded-2xl p-8 md:col-span-2">
+              <h3 className="text-2xl heavy-heading text-white mb-3">AI Marketing &amp; Insights</h3>
+              <p className="text-white/70 text-sm leading-relaxed mb-6" style={{ maxWidth: "28rem" }}>Understand your best-selling items and peak hours. DukanDigit AI suggests what to stock and when to discount.</p>
+              <div className="space-y-2 mb-8" style={{ maxWidth: "240px" }}>
+                <div className="h-2 bg-[#2563EB] rounded-full w-full"></div>
+                <div className="h-2 bg-white/20 rounded-full" style={{ width: "75%" }}></div>
+                <div className="h-2 bg-white/20 rounded-full" style={{ width: "55%" }}></div>
+              </div>
+              <Link href="/contact" className="inline-block border border-white/40 text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-lg hover:bg-white/10 transition-colors">
+                View Sample Report
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* Core Infrastructure */}
         <section className="max-w-7xl mx-auto px-6 section-padding bg-surface-alt/30 rounded-[3rem]">
           <div className="mb-16">
