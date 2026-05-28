@@ -1,6 +1,10 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ============================================================
+# DukanDigit — .gitignore
+# ============================================================
 
-# dependencies
+# -----------------------------------------------
+# Dependencies
+# -----------------------------------------------
 /node_modules
 /.pnp
 .pnp.*
@@ -10,32 +14,109 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
-
-# next.js
+# -----------------------------------------------
+# Next.js build output
+# -----------------------------------------------
 /.next/
 /out/
-
-# production
 /build
+/.vercel
 
-# misc
+# -----------------------------------------------
+# Environment & secrets — NEVER COMMIT THESE
+# -----------------------------------------------
+.env
+.env.*
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+*.secret
+*.secrets
+secrets.json
+credentials.json
+service-account*.json
+firebase*.json
+
+# -----------------------------------------------
+# TypeScript
+# -----------------------------------------------
+*.tsbuildinfo
+next-env.d.ts
+
+# -----------------------------------------------
+# Testing & coverage
+# -----------------------------------------------
+/coverage
+/.nyc_output
+/test-results
+/playwright-report
+/playwright/.cache
+
+# -----------------------------------------------
+# IDE & editor files
+# -----------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.sublime-project
+*.sublime-workspace
+
+# -----------------------------------------------
+# OS generated files
+# -----------------------------------------------
 .DS_Store
-*.pem
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
 
-# debug
+# -----------------------------------------------
+# Logs & debug
+# -----------------------------------------------
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+lerna-debug.log*
+*.log
+logs/
 
-# env files (can opt-in for committing if needed)
-.env*
+# -----------------------------------------------
+# Certificates & keys
+# -----------------------------------------------
+*.pem
+*.key
+*.cert
+*.p12
+*.pfx
 
-# vercel
-.vercel
+# -----------------------------------------------
+# Package manager locks (keep only one)
+# Uncomment the ones you do NOT use
+# -----------------------------------------------
+# package-lock.json   # keep if using npm
+# yarn.lock           # keep if using yarn
+# pnpm-lock.yaml      # keep if using pnpm
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# -----------------------------------------------
+# Misc
+# -----------------------------------------------
+*.tgz
+*.zip
+*.tar.gz
+.cache/
+.turbo/
+.parcel-cache/
