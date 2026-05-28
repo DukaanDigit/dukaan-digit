@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -123,7 +124,11 @@ const tabs = [
 ];
 
 export default function IndustriesPage() {
-  const [activeTab, setActiveTab] = useState("grocery");
+  const searchParams = useSearchParams();
+  const initialTab = searchParams.get("tab");
+  const [activeTab, setActiveTab] = useState(
+    initialTab && industryData[initialTab] ? initialTab : "grocery"
+  );
   const data = industryData[activeTab];
 
   return (

@@ -19,7 +19,7 @@ const teamMembers = [
   {
     name: "Muhammad Jibran",
     role: "Lead Developer & DevOps Engineer",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAAd3hg1mCMVY3B0i47FfMdEZdavZUeSTc-m5T8x-8eISTszM2kv4eii56TpBU2p12ASKJhCwR5ZCUdcqgSFTSPAcAcdudPVWuWj5DN44DS0xOXKLrYrsq8jyBPaYjdZ52XtdQD1k3FJPZFqpWVtoPP82GbHaz_XTXyI3x5hNtyWAOppzVcxW1di0bUmyhWGNwdo0FAeDSpeLsvAcXXK9zmOhv0jVkMupClWD5JvrgCcCjRBr_HlcCrXe6_pc9IXEIMqfeEnY0P2Fn0",
+    img: "/jibran.png",
     linkedin: "https://www.linkedin.com/in/muhammad-jibran-8802322a5",
   },
   {

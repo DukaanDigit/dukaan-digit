@@ -236,18 +236,18 @@ export default function HomePage() {
             <h2 className="text-4xl heavy-heading text-center mb-16 text-text-main">Tailored For Your Industry</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
               {[
-                { icon: "storefront", label: "Kiryana", active: false },
-                { icon: "apparel", label: "Fashion", active: true },
-                { icon: "local_pharmacy", label: "Pharmacy", active: false },
-                { icon: "warehouse", label: "Wholesale", active: false },
-                { icon: "home_repair_service", label: "Hardware", active: false },
-                { icon: "smartphone", label: "Mobile", active: false },
-                { icon: "restaurant", label: "F&B", active: false },
-                { icon: "category", label: "Distribution", active: false },
+                { icon: "storefront", label: "Kiryana", tab: "grocery" },
+                { icon: "apparel", label: "Fashion", tab: "fashion" },
+                { icon: "local_pharmacy", label: "Pharmacy", tab: "pharmacy" },
+                { icon: "warehouse", label: "Wholesale", tab: "wholesale" },
+                { icon: "home_repair_service", label: "Hardware", tab: "hardware" },
+                { icon: "smartphone", label: "Electronics", tab: "electronics" },
+                { icon: "receipt", label: "FBR Quota", tab: "fbr" },
+                { icon: "local_shipping", label: "Distributors", tab: "distributors" },
               ].map((item) => (
-                <Link key={item.label} href="/industries" className={`bg-white p-6 rounded-xl border flex flex-col items-center justify-center gap-3 transition-all ${item.active ? "border-[#2563EB]" : "border-border-subtle hover:border-[#2563EB]"}`}>
-                  <span className={`material-symbols-outlined ${item.active ? "text-[#2563EB]" : "text-text-muted"}`}>{item.icon}</span>
-                  <span className={`text-xs font-bold uppercase tracking-wider ${item.active ? "text-[#2563EB]" : "text-text-muted"}`}>{item.label}</span>
+                <Link key={item.label} href={`/industries?tab=${item.tab}`} className="bg-white p-6 rounded-xl border border-border-subtle flex flex-col items-center justify-center gap-3 transition-all hover:border-[#2563EB] hover:shadow-sm group">
+                  <span className="material-symbols-outlined text-text-muted group-hover:text-[#2563EB] transition-colors">{item.icon}</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-text-muted group-hover:text-[#2563EB] transition-colors">{item.label}</span>
                 </Link>
               ))}
             </div>
